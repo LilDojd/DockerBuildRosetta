@@ -112,6 +112,9 @@ RUN wget --no-check-certificate \
 
 RUN tar -xvjf rosetta.source.release-314.tar.bz2 && rm -rf rosetta.source.release-314.tar.bz2
 
+ENV PYTHONUNBUFFERED=1
+RUN apk add --update --no-cache python3 && ln -sf python3 /usr/bin/python && python3 -m ensurepip && pip3 install --no-cache --upgrade pip setuptools && pip install scons
+
 RUN cd /home/rosetta.source.release-314/main/source && \
     ./scons.py \
         -j ${MAKE_JOBS} \
